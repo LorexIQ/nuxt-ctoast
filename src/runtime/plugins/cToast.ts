@@ -4,10 +4,9 @@ import evBus from "./evBus";
 import {createApp} from 'vue';
 import {
   CToast, CToastCreate,
-  CToastDefault,
-  CToastDefaultResult, CToastEditLoaderStatus,
+  CToastDefFunc, CToastEditLoaderStatus,
   CToastLoader,
-  CToastLoaderDataPrepared, CToastLoaderReturn,
+  CToastLoaderDataPrepared, CToastLoaderReturn, CToastPlugin,
   CToastPrepared,
   CToastType
 } from "../types";
@@ -16,23 +15,16 @@ import {ModuleOptions} from "../../module";
 let options: ModuleOptions;
 let idPadding = 0;
 
-function initDefaultTypes<T extends CToastDefault>(types: T): CToastDefaultResult<T> {
-  const resultFunctions = {} as CToastDefaultResult<T>;
+function initDefaultType(type: CToastType): CToastDefFunc {
+  return (data: CToastCreate) => {
+    const dataPrepared = typeof data === 'string' ? { title: data } : data;
 
-  for (const toastType in types) {
-    resultFunctions[toastType] = (data: CToastCreate) => {
-      const dataPrepared = typeof data === 'string' ? { title: data } : data;
-
-      evBus.$event('create', prepareToastData({
-        type: toastType as CToastType,
-        ...dataPrepared
-      }));
-    };
-  }
-
-  return resultFunctions;
+    evBus.$event('create', prepareToastData({
+      type: type,
+      ...dataPrepared
+    }));
+  };
 }
-
 function prepareToastData(data: CToast): CToastPrepared {
   return {
     id: (Date.now() + idPadding++).toString(),
@@ -107,7 +99,7 @@ function showLoader<T extends CToastLoader>(data: T): CToastLoaderReturn<T['load
     }
   };
 }
-function editLoaderStatus(stageData: CToastEditLoaderStatus) {
+function editLoaderStatus(stageData: CToastEditLoaderStatus): void {
   evBus.$event('editLoaderStatus', stageData);
 }
 
@@ -121,7 +113,7 @@ function replace(name: string, data: CToast): void {
   evBus.$event('replace', [name, prepareToastData(data)]);
 }
 
-const cToast: Plugin<{ cdd: () => void }> = defineNuxtPlugin(nuxtApp => {
+const cToast: Plugin<{ cToast: CToastPlugin }> = defineNuxtPlugin(nuxtApp => {
   if (process.server) return;
 
   nuxtApp.hook('app:created', () => {
@@ -139,7 +131,19 @@ const cToast: Plugin<{ cdd: () => void }> = defineNuxtPlugin(nuxtApp => {
 
   return {
     provide: {
-      cdd: () => console.log(123)
+      cToast: {
+        success: initDefaultType('success'),
+        error: initDefaultType('error'),
+        warn: initDefaultType('warn'),
+
+        show,
+        showLoader,
+        editLoaderStatus,
+
+        clear,
+        remove,
+        replace
+      }
     }
   };
 });

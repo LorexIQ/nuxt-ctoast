@@ -1,6 +1,6 @@
 {
   "name": "ctoast",
-  "version": "2.5.5",
+  "version": "2.5.6",
   "description": "New Nuxt3 cToast version!",
   "license": "MIT",
   "type": "module",
@@ -9,7 +9,6 @@
     "nuxt",
     "ts",
     "notifications",
-    "nodejs",
     "iconify",
     "sass"
   ],
@@ -39,7 +38,7 @@
     "dist"
   ],
   "scripts": {
-    "prepack": "npm run dev:prepare && nuxt-module-build",
+    "prepack": "nuxt-module-build",
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",

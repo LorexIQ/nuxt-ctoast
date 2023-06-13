@@ -2,8 +2,7 @@
 import {useNuxtApp} from "#imports";
 import {CToastLoaderStagesStatuses} from "../src/runtime/types";
 
-const { $cdd } = useNuxtApp();
-$cdd();
+const { $cToast } = useNuxtApp();
 
 let loaderObject;
 

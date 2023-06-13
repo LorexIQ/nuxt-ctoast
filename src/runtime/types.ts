@@ -6,10 +6,29 @@ export type CToastEditLoaderStatus = {
   status: CToastLoaderStagesStatuses
   desc?: string
 };
+export type CToastDefFunc = (data: CToastCreate) => void;
 
 export type CToastType = 'success' | 'error' | 'warn';
 export type CToastLoaderStagesStatuses = 'load' | 'success' | 'error';
+export type CToastOptionsPosition =
+  | 'top-left'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-right';
 
+export interface CToastPlugin {
+  success: CToastDefFunc
+  error: CToastDefFunc
+  warn: CToastDefFunc
+
+  show: (data: CToast) => void
+  showLoader: <T extends CToastLoader>(data: T) => CToastLoaderReturn<T['loader']['stages']>
+  editLoaderStatus: (stageData: CToastEditLoaderStatus) => void
+
+  clear: () => void
+  remove: (name: string) => void
+  replace: (name: string, data: CToast) => void
+}
 export interface CToastForm {
   type: CToastType
   title: string
@@ -79,16 +98,3 @@ export interface CToastPrepared extends CToastForm {
   loader?: CToastLoaderDataPrepared
 }
 export type CToastWithoutMeta<T extends CToastForm> = Omit<T, 'type'>;
-
-export type CToastDefault = {
-  [key in CToastType]: string
-};
-export type CToastDefaultResult<T> = {
-  [key in keyof T]: (data: string | CToastWithoutMeta<CToast>) => void
-};
-
-export type CToastOptionsPosition =
-  | 'top-left'
-  | 'top-right'
-  | 'bottom-left'
-  | 'bottom-right';
