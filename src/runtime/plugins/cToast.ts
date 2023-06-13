@@ -3,7 +3,7 @@ import CToastComponent from '../components/CToast.vue';
 import evBus from "./evBus";
 import {createApp} from 'vue';
 import {
-  CToast,
+  CToast, CToastCreate,
   CToastDefault,
   CToastDefaultResult, CToastEditLoaderStatus,
   CToastLoader,
@@ -20,7 +20,7 @@ function initDefaultTypes<T extends CToastDefault>(types: T): CToastDefaultResul
   const resultFunctions = {} as CToastDefaultResult<T>;
 
   for (const toastType in types) {
-    resultFunctions[toastType] = (data) => {
+    resultFunctions[toastType] = (data: CToastCreate) => {
       const dataPrepared = typeof data === 'string' ? { title: data } : data;
 
       evBus.$event('create', prepareToastData({

@@ -1,4 +1,4 @@
-export type CToastCreate = string | CToast;
+export type CToastCreate = string | CToastWithoutMeta<CToast>;
 export type CToastReplace = [string, CToastPrepared];
 export type CToastEditLoaderStatus = {
   name: string
