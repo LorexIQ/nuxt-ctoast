@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v2.5.9
+
+[compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.5.8...v2.5.9)
+
+
+### 🩹 Fixes
+
+  - Change badge path ([ecb17dd](https://github.com/LorexIQ/nuxt-ctoast/commit/ecb17dd))
+
+### ❤️  Contributors
+
+- LorexIQ <murashko100500@gmail.com>
+
 ## v2.5.8
 
 [compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.5.2...v2.5.8)
