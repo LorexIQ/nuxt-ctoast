@@ -1,3 +1,7 @@
+/**
+ * @module ctoast
+ */
+
 import {defineNuxtModule, addPlugin, createResolver} from '@nuxt/kit';
 import {CToastOnClickConfig, CToastOptionsPosition} from "./runtime/types";
 import defu from "defu";

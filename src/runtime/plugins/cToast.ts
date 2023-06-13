@@ -1,4 +1,4 @@
-import {defineNuxtPlugin} from "#app";
+import {defineNuxtPlugin, Plugin} from "#app";
 import CToastComponent from '../components/CToast.vue';
 import evBus from "./evBus";
 import {createApp} from 'vue';
@@ -121,7 +121,7 @@ function replace(name: string, data: CToast): void {
   evBus.$event('replace', [name, prepareToastData(data)]);
 }
 
-export default defineNuxtPlugin(nuxtApp => {
+const cToast: Plugin<{ cdd: () => void }> = defineNuxtPlugin(nuxtApp => {
   if (process.server) return;
 
   nuxtApp.hook('app:created', () => {
@@ -139,18 +139,9 @@ export default defineNuxtPlugin(nuxtApp => {
 
   return {
     provide: {
-      cdd: () => console.log(123),
-      cToast: {
-        ...initDefaultTypes(options.icons.default),
-
-        show,
-        showLoader,
-        editLoaderStatus,
-
-        clear,
-        remove,
-        replace
-      }
+      cdd: () => console.log(123)
     }
   };
 });
+
+export default cToast;

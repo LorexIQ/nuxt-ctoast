@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  modules: ['../dist/module'],
+  modules: ['../src/module'],
 
   devtools: {
     enabled: true,
