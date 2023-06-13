@@ -1,6 +1,20 @@
 # Changelog
 
 
+## v2.4.0
+
+[compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.3.0...v2.4.0)
+
+
+### 🚀 Enhancements
+
+  - Edit package.json ([c35b338](https://github.com/LorexIQ/nuxt-ctoast/commit/c35b338))
+  - Edit package.json ([4c0235c](https://github.com/LorexIQ/nuxt-ctoast/commit/4c0235c))
+
+### ❤️  Contributors
+
+- LorexIQ <murashko100500@gmail.com>
+
 ## v2.3.0
 
 [compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.2.0...v2.3.0)
