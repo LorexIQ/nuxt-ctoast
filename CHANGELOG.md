@@ -1,6 +1,24 @@
 # Changelog
 
 
+## v2.5.8
+
+[compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.5.2...v2.5.8)
+
+
+### 🩹 Fixes
+
+  - Scripts ([dc5fb88](https://github.com/LorexIQ/nuxt-ctoast/commit/dc5fb88))
+  - Scripts ([3c8b1d9](https://github.com/LorexIQ/nuxt-ctoast/commit/3c8b1d9))
+  - Test ([52aaa00](https://github.com/LorexIQ/nuxt-ctoast/commit/52aaa00))
+  - Test ([338f7e6](https://github.com/LorexIQ/nuxt-ctoast/commit/338f7e6))
+  - Bug with empty plugin style ([90c4cad](https://github.com/LorexIQ/nuxt-ctoast/commit/90c4cad))
+  - Fix meta ([f16e102](https://github.com/LorexIQ/nuxt-ctoast/commit/f16e102))
+
+### ❤️  Contributors
+
+- LorexIQ <murashko100500@gmail.com>
+
 ## v2.5.2
 
 [compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.5.1...v2.5.2)

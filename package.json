@@ -1,6 +1,6 @@
 {
   "name": "nuxt-ctoast",
-  "version": "2.5.7",
+  "version": "2.5.8",
   "description": "New Nuxt3 cToast version!",
   "license": "MIT",
   "type": "module",
