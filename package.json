@@ -1,10 +1,19 @@
 {
-  "name": "@nuxt/ctoast",
-  "version": "2.1.1",
+  "name": "ctoast",
+  "version": "2.1.2",
   "description": "New Nuxt3 cToast version!",
-  "repository": "your-org/my-module",
+  "repository": "@lorexiq/ctoast",
   "license": "MIT",
   "type": "module",
+  "keywords": [
+    "vue3",
+    "nuxt",
+    "ts",
+    "notifications",
+    "nodejs",
+    "iconify",
+    "sass"
+  ],
   "exports": {
     ".": {
       "types": "./dist/types.d.ts",
