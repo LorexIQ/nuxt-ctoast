@@ -32,7 +32,7 @@ export interface ModuleOptions {
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: '@nuxt/ctoast',
+    name: 'ctoast',
     configKey: 'ctoast',
     compatibility: {
       nuxt: '^3.0.0'
@@ -71,6 +71,11 @@ export default defineNuxtModule<ModuleOptions>({
     const {resolve} = createResolver(import.meta.url);
     nuxt.options.runtimeConfig.public.ctoast = defu(nuxt.options.runtimeConfig.public.ctoast, options);
 
-    addPlugin(resolve('runtime/plugins/cToast'));
+    nuxt.hook('modules:done', () => {
+      addPlugin({
+        src: resolve('runtime/plugins/cToast'),
+        mode: 'client'
+      });
+    });
   }
 });

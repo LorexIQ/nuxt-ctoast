@@ -1,4 +1,4 @@
-import {defineNuxtPlugin} from "#imports";
+import {defineNuxtPlugin} from "#app";
 import CToastComponent from '../components/CToast.vue';
 import evBus from "./evBus";
 import {createApp} from 'vue';
@@ -139,6 +139,7 @@ export default defineNuxtPlugin(nuxtApp => {
 
   return {
     provide: {
+      cdd: () => console.log(123),
       cToast: {
         ...initDefaultTypes(options.icons.default),
 
