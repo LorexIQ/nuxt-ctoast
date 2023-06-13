@@ -2,7 +2,6 @@
   "name": "ctoast",
   "version": "2.2.0",
   "description": "New Nuxt3 cToast version!",
-  "repository": "@lorexiq/ctoast",
   "license": "MIT",
   "type": "module",
   "keywords": [
@@ -14,6 +13,19 @@
     "iconify",
     "sass"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LorexIQ/nuxt-ctoast.git"
+  },
+  "author": {
+    "name": "LorexIQ",
+    "email": "dmitrymurashko0@gmail.com",
+    "url": "https://lorexiq.github.io"
+  },
+  "bugs": {
+    "url": "https://github.com/LorexIQ/nuxt-ctoast/issues"
+  },
+  "homepage": "https://github.com/LorexIQ/nuxt-ctoast",
   "exports": {
     ".": {
       "types": "./dist/types.d.ts",
