@@ -4,11 +4,10 @@
 </div>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/ctoast"><img src="https://img.shields.io/npm/v/ctoast.svg?style=for-the-badge&logo=npm"/></a>
-  <a href="https://www.npmjs.com/package/ctoast"><img src="https://img.shields.io/npm/l/ctoast.svg?style=for-the-badge"/></a>
-  <a href="https://www.npmjs.com/package/ctoast"><img src="https://img.shields.io/npm/dm/ctoast.svg?style=for-the-badge"/></a>
+  <a href="https://www.npmjs.com/package/nuxt-ctoast"><img src="https://img.shields.io/npm/v/nuxt-ctoast.svg?style=for-the-badge&logo=npm"/></a>
+  <a href="https://www.npmjs.com/package/nuxt-ctoast"><img src="https://img.shields.io/npm/l/nuxt-ctoast.svg?style=for-the-badge"/></a>
+  <a href="https://www.npmjs.com/package/nuxt-ctoast"><img src="https://img.shields.io/npm/dm/nuxt-ctoast.svg?style=for-the-badge"/></a>
   <a href="https://nodejs.org"><img src="https://img.shields.io/static/v1?logo=node.js&label=Node.js&message=v16.x.x&labelColor=6a6a6a&color=5ecc34&style=for-the-badge"/></a>
-  <a href="https://vuejs.org/"><img src="https://img.shields.io/badge/vue-3.x-brightgreen.svg?style=for-the-badge&logo=vue.js"/></a>
   <a href="https://vuejs.org/"><img src="https://img.shields.io/badge/nuxt-3.x-brightgreen.svg?style=for-the-badge&logo=nuxt.js"/></a>
 </p>
 
