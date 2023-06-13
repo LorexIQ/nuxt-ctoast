@@ -1,5 +1,5 @@
 /**
- * @module ctoast
+ * @module nuxt-ctoast
  */
 
 import {defineNuxtModule, addPlugin, createResolver} from '@nuxt/kit';
@@ -36,8 +36,8 @@ export interface ModuleOptions {
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: 'ctoast',
-    configKey: 'ctoast',
+    name: 'nuxt-ctoast',
+    configKey: 'cToast',
     compatibility: {
       nuxt: '^3.0.0'
     }

@@ -3,12 +3,14 @@
   <h1>cToast</h1>
 </div>
 
-[![npm version][npm-version-src]][npm-version-href]
-[![npm downloads][npm-downloads-src]][npm-downloads-href]
-[![License][license-src]][license-href]
-[![Nuxt][nuxt-src]][nuxt-href]
-
-- [✨ Release Notes](/CHANGELOG.md)
+<p align="center">
+  <a href="https://www.npmjs.com/package/ctoast"><img src="https://img.shields.io/npm/v/ctoast.svg?style=for-the-badge&logo=npm"/></a>
+  <a href="https://www.npmjs.com/package/ctoast"><img src="https://img.shields.io/npm/l/ctoast.svg?style=for-the-badge"/></a>
+  <a href="https://www.npmjs.com/package/ctoast"><img src="https://img.shields.io/npm/dm/ctoast.svg?style=for-the-badge"/></a>
+  <a href="https://nodejs.org"><img src="https://img.shields.io/static/v1?logo=node.js&label=Node.js&message=v16.x.x&labelColor=6a6a6a&color=5ecc34&style=for-the-badge"/></a>
+  <a href="https://vuejs.org/"><img src="https://img.shields.io/badge/vue-3.x-brightgreen.svg?style=for-the-badge&logo=vue.js"/></a>
+  <a href="https://vuejs.org/"><img src="https://img.shields.io/badge/nuxt-3.x-brightgreen.svg?style=for-the-badge&logo=nuxt.js"/></a>
+</p>
 
 ***
 
@@ -31,6 +33,8 @@
 
 ***
 
+- [✨ Release Notes](/CHANGELOG.md)
+
 ## Features
 
 - 🌗 Themes
@@ -44,13 +48,13 @@
 
 ```bash
 # Using pnpm
-pnpm add ctoast
+pnpm add nuxt-ctoast
 
 # Using yarn
-yarn add ctoast
+yarn add nuxt-ctoast
 
 # Using npm
-npm install ctoast
+npm install nuxt-ctoast
 ```
 
 2. Add `ctoast` to the `modules` section of `nuxt.config.ts`
@@ -58,7 +62,7 @@ npm install ctoast
 ```js
 export default defineNuxtConfig({
   modules: [
-    'ctoast'
+    'nuxt-ctoast'
   ]
 })
 ```
@@ -75,7 +79,7 @@ There are 2 ways to pass parameters to the module
 // nuxt.config.ts
 export default defineNuxtConfig({
   modules: [
-    ['ctoast', { args }]
+    ['cToast', { args }]
   ]
 })
 ```
@@ -83,7 +87,7 @@ export default defineNuxtConfig({
 2. Passing parameters through the namespace
 ```ts
 export default {
-  ctoast: {
+  cToast: {
       args
   }  
 }
