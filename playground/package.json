@@ -10,5 +10,8 @@
   "devDependencies": {
     "@nuxt/devtools": "^0.5.5",
     "nuxt": "latest"
+  },
+  "dependencies": {
+    "ctoast": "^2.4.0"
   }
 }

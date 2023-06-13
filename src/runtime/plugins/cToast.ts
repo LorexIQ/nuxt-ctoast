@@ -137,21 +137,19 @@ export default defineNuxtPlugin(nuxtApp => {
 
   options = (nuxtApp.$config as any).public.ctoast as ModuleOptions;
 
-  const cToast = {
-    ...initDefaultTypes(options.icons.default),
-
-    show,
-    showLoader,
-    editLoaderStatus,
-
-    clear,
-    remove,
-    replace
-  };
-
   return {
     provide: {
-      cToast
+      cToast: {
+        ...initDefaultTypes(options.icons.default),
+
+        show,
+        showLoader,
+        editLoaderStatus,
+
+        clear,
+        remove,
+        replace
+      }
     }
   };
 });
