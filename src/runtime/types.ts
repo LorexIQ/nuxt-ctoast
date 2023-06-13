@@ -1,17 +1,26 @@
 export type CToastCreate = string | CToast;
+export type CToastReplace = [string, CToastPrepared];
 
-export type CToastType = 'success' | 'error' | 'info';
+export type CToastType = 'success' | 'error' | 'warn';
 export interface CToast {
   title: string
-  description?: string
-  icon: string
-  delay?: number | false
-
   type: CToastType
+
+  name?: string
+  icon?: string
+  description?: string
+  delay?: number | false
+  timer?: boolean
+
+  deleteOnClick?: boolean
+  onDelete?: (toast: CToastPrepared) => void
 }
 export interface CToastPrepared extends CToast {
-  id?: string
+  id: string
+  icon: string
   delay: number
+  deleteOnClick: boolean,
+  timer: boolean
 }
 
 export type CToastWithoutMeta = PartialBy<Omit<CToast, 'type'>, 'icon'>;

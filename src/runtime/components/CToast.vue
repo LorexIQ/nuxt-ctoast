@@ -16,6 +16,18 @@ const { $listen } = evBus;
 const ctoasts = reactive<CToastPrepared[]>([]);
 const ctoastsDelays: NodeJS.Timeout[] = [];
 
+function createToast(toast: CToastPrepared, index: number = ctoasts.length): void {
+  const removeTimeout = setTimeout((toast: CToastPrepared) => {
+    const toastIndex = ctoasts.indexOf(toast);
+
+    if (toastIndex !== -1) {
+      clearToasts([ctoasts[toastIndex]]);
+    }
+  }, toast.delay, toast);
+
+  ctoasts[index] = toast;
+  ctoastsDelays[index] = removeTimeout;
+}
 function clearToasts(toasts: CToastPrepared[]): void {
   if (!toasts.length) return;
 
@@ -31,23 +43,34 @@ function clearToasts(toasts: CToastPrepared[]): void {
     setTimeout(() => clearToasts(toasts.slice(1)), options.massClearDelay);
   }
 }
+function removeToast(toast: CToastPrepared): void {
+  clearToasts([toast]);
+}
 
-$listen('create', data => {
+$listen('create', toast => {
   if (ctoasts.length >= options.maxToasts) {
     clearToasts([ctoasts[0]]);
   }
 
-  ctoasts.push(data);
-  ctoastsDelays.push(setTimeout((toast: CToastPrepared) => {
-    const toastIndex = ctoasts.indexOf(toast);
-
-    if (toastIndex !== -1) {
-      clearToasts([ctoasts[toastIndex]]);
-    }
-  }, data.delay, data));
+  createToast(toast);
 });
 $listen('clear', () => {
   clearToasts([...ctoasts]);
+});
+$listen('remove', name => {
+  clearToasts(ctoasts.filter(toast => toast.name === name));
+});
+$listen('replace', ([name, newToast]) => {
+  const foundToasts = ctoasts.filter(toast => toast.name === name);
+
+  if (foundToasts.length) {
+    const lastToastIndex = ctoasts.indexOf(foundToasts[foundToasts.length - 1]);
+
+    if (lastToastIndex !== -1) {
+      createToast(newToast, lastToastIndex);
+      clearToasts(foundToasts.slice(0, foundToasts.length - 1));
+    }
+  }
 });
 </script>
 
@@ -66,6 +89,7 @@ $listen('clear', () => {
         :key="toast.id"
         :data="toast"
         :options="options"
+        @remove="removeToast"
       />
     </transition-group>
   </div>

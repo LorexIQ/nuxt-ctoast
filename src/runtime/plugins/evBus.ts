@@ -1,9 +1,11 @@
 import mitt from 'mitt';
-import {CToastPrepared} from "../types";
+import {CToastPrepared, CToastReplace} from "../types";
 
 type Emits = {
-  create: CToastPrepared,
+  create: CToastPrepared
   clear: void
+  remove: string
+  replace: CToastReplace
 };
 
 const emitter = mitt<Emits>();

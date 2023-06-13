@@ -7,14 +7,28 @@ interface Props {
   data: CToastPrepared,
   options: ModuleOptions
 }
+interface Emits {
+  (e: 'remove', v: CToastPrepared): void
+}
 
-defineProps<Props>();
+const props = defineProps<Props>();
+const emit = defineEmits<Emits>();
+
+function removeToast() {
+  if (props.data.deleteOnClick) {
+    if (props.data.onDelete) {
+      props.data.onDelete(props.data);
+    }
+    emit('remove', props.data);
+  }
+}
 </script>
 
 <template>
   <div
     class="ctoast-notify"
     :class="`--${data.type}`"
+    @click="removeToast"
   >
     <div class="ctoast-notify__header">
       <icon
@@ -24,7 +38,7 @@ defineProps<Props>();
       <p>{{ data.title }}</p>
     </div>
     <div
-      v-if="data.delay !== options.infinityDestroyDelay && options.toast.timer"
+      v-if="data.delay !== options.infinityDestroyDelay && data.timer"
       class="ctoast-notify__timer"
       :style="`animation-duration: ${data.delay}ms;`"
     />
@@ -40,7 +54,7 @@ defineProps<Props>();
 <style scoped lang="scss">
 $success: #4caf50;
 $error: #f44336;
-$info: #ffb020;
+$warn: #ffb020;
 
 .ctoast-notify {
   width: 250px;
@@ -68,12 +82,12 @@ $info: #ffb020;
       background-color: $error;
     }
   }
-  &.--info .ctoast-notify{
+  &.--warn .ctoast-notify{
     &__header, &.iconify {
-      color: $info;
+      color: $warn;
     }
     &__timer {
-      background-color: $info;
+      background-color: $warn;
     }
   }
 

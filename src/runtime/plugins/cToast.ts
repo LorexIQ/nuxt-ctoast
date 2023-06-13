@@ -1,23 +1,33 @@
 import {defineNuxtPlugin} from "#imports";
 import CToastComponent from '../components/CToast.vue';
 import evBus from "./evBus";
-import { createApp } from 'vue';
+import {createApp} from 'vue';
 import {useNuxtApp} from '#imports';
-import {CToast, CToastDefault, CToastDefaultConfig, CToastDefaultResult, CToastPrepared, CToastType} from "../types";
+import {CToast, CToastDefault, CToastDefaultResult, CToastPrepared, CToastType} from "../types";
 import {ModuleOptions} from "../../module";
 
 let options: ModuleOptions;
+const defaultToasts: CToastDefault = {
+  success: {
+    icon: 'mingcute:check-fill'
+  },
+  error: {
+    icon: 'pepicons-pop:times'
+  },
+  warn: {
+    icon: 'pajamas:warning-solid'
+  }
+};
+let idPadding = 0;
 
 function initDefaultTypes<T extends CToastDefault>(types: T): CToastDefaultResult<T> {
   const resultFunctions = {} as CToastDefaultResult<T>;
 
   for (const toastType in types) {
-    const value = types[toastType] as CToastDefaultConfig;
     resultFunctions[toastType] = (data) => {
       const dataPrepared = typeof data === 'string' ? { title: data } : data;
 
       evBus.$event('create', prepareToastData({
-        icon: value.icon,
         type: toastType as CToastType,
         ...dataPrepared
       }));
@@ -29,15 +39,25 @@ function initDefaultTypes<T extends CToastDefault>(types: T): CToastDefaultResul
 
 function prepareToastData(data: CToast): CToastPrepared {
   return {
-    id: Date.now().toString(),
+    id: (Date.now() + idPadding++).toString(),
+    icon: defaultToasts[data.type].icon,
     ...options.toast,
     ...data,
     delay: (data.delay ?? options.toast.delay) || options.infinityDestroyDelay
   };
 }
 
+function show(data: CToast): void {
+  evBus.$event('create', prepareToastData(data));
+}
 function clear(): void {
   evBus.$event('clear');
+}
+function remove(name: string): void {
+  evBus.$event('remove', name);
+}
+function replace(name: string, data: CToast): void {
+  evBus.$event('replace', [name, prepareToastData(data)]);
 }
 
 export default defineNuxtPlugin(nuxtApp => {
@@ -57,21 +77,12 @@ export default defineNuxtPlugin(nuxtApp => {
     app.mount('#__ctoast');
   });
 
-  const defaultToasts = initDefaultTypes({
-    success: {
-      icon: 'mingcute:check-fill'
-    },
-    error: {
-      icon: 'pepicons-pop:times'
-    },
-    info: {
-      icon: 'svg-spinners:tadpole'
-    }
-  });
-
   const cToast = {
-    ...defaultToasts,
-    clear
+    ...initDefaultTypes(defaultToasts),
+    show,
+    clear,
+    remove,
+    replace
   };
 
   return {
