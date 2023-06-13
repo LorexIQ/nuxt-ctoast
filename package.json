@@ -1,6 +1,6 @@
 {
   "name": "ctoast",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "New Nuxt3 cToast version!",
   "license": "MIT",
   "type": "module",
