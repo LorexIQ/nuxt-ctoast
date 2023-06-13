@@ -1,6 +1,6 @@
 {
   "name": "@nuxt/ctoast",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "New Nuxt3 cToast version!",
   "repository": "your-org/my-module",
   "license": "MIT",
