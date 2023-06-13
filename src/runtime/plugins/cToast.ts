@@ -2,22 +2,18 @@ import {defineNuxtPlugin} from "#imports";
 import CToastComponent from '../components/CToast.vue';
 import evBus from "./evBus";
 import {createApp} from 'vue';
-import {useNuxtApp} from '#imports';
-import {CToast, CToastDefault, CToastDefaultResult, CToastPrepared, CToastType} from "../types";
+import {
+  CToast,
+  CToastDefault,
+  CToastDefaultResult, CToastEditLoaderStatus,
+  CToastLoader,
+  CToastLoaderDataPrepared, CToastLoaderReturn,
+  CToastPrepared,
+  CToastType
+} from "../types";
 import {ModuleOptions} from "../../module";
 
 let options: ModuleOptions;
-const defaultToasts: CToastDefault = {
-  success: {
-    icon: 'mingcute:check-fill'
-  },
-  error: {
-    icon: 'pepicons-pop:times'
-  },
-  warn: {
-    icon: 'pajamas:warning-solid'
-  }
-};
 let idPadding = 0;
 
 function initDefaultTypes<T extends CToastDefault>(types: T): CToastDefaultResult<T> {
@@ -40,16 +36,81 @@ function initDefaultTypes<T extends CToastDefault>(types: T): CToastDefaultResul
 function prepareToastData(data: CToast): CToastPrepared {
   return {
     id: (Date.now() + idPadding++).toString(),
-    icon: defaultToasts[data.type].icon,
+    icon: options.icons.default[data.type],
     ...options.toast,
     ...data,
     delay: (data.delay ?? options.toast.delay) || options.infinityDestroyDelay
+  };
+}
+function prepareToastLoaderData(data: CToastLoader): CToastPrepared {
+  const loader = data.loader;
+  const stages = loader.stages;
+  const preparedStages = {
+    success: {
+      ...loader.success,
+      toast: prepareToastData({
+        type: 'success',
+        ...loader.success.toast
+      })
+    },
+    error: {
+      ...loader.error,
+      toast: prepareToastData({
+        type: 'error',
+        ...loader.error.toast
+      })
+    },
+    stages: loader.stages,
+    stagesStatus: {}
+  } as CToastLoaderDataPrepared;
+
+  for (const stage in stages) {
+    preparedStages.stagesStatus[stage] = {
+      status: 'load',
+      title: stages[stage]
+    };
+  }
+
+  return {
+    id: (Date.now() + idPadding++).toString(),
+    type: 'warn',
+    icon: options.icons.loader.header,
+    timer: false,
+    onClick: { delete: false },
+    ...data,
+    loader: preparedStages,
+    delay: data.delay || options.infinityDestroyDelay
   };
 }
 
 function show(data: CToast): void {
   evBus.$event('create', prepareToastData(data));
 }
+function showLoader<T extends CToastLoader>(data: T): CToastLoaderReturn<T['loader']['stages']> {
+  evBus.$event('create', prepareToastLoaderData(data));
+
+  return {
+    success: (stage) => {
+      evBus.$event('editLoaderStatus', {
+        name: data.name,
+        stage: stage as string,
+        status: 'success'
+      });
+    },
+    error: (stage, desc?) => {
+      evBus.$event('editLoaderStatus', {
+        name: data.name,
+        stage: stage as string,
+        status: 'error',
+        desc
+      });
+    }
+  };
+}
+function editLoaderStatus(stageData: CToastEditLoaderStatus) {
+  evBus.$event('editLoaderStatus', stageData);
+}
+
 function clear(): void {
   evBus.$event('clear');
 }
@@ -61,12 +122,9 @@ function replace(name: string, data: CToast): void {
 }
 
 export default defineNuxtPlugin(nuxtApp => {
+  if (process.server) return;
+
   nuxtApp.hook('app:created', () => {
-    if (process.server) return;
-
-    const config = useNuxtApp().$config as any;
-    options = config.public.ctoast;
-
     const cToastDOMElement = document.createElement('div');
     cToastDOMElement.id = '__ctoast';
     document.body.appendChild(cToastDOMElement);
@@ -77,9 +135,15 @@ export default defineNuxtPlugin(nuxtApp => {
     app.mount('#__ctoast');
   });
 
+  options = (nuxtApp.$config as any).public.ctoast as ModuleOptions;
+
   const cToast = {
-    ...initDefaultTypes(defaultToasts),
+    ...initDefaultTypes(options.icons.default),
+
     show,
+    showLoader,
+    editLoaderStatus,
+
     clear,
     remove,
     replace

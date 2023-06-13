@@ -1,8 +1,10 @@
 import mitt from 'mitt';
-import {CToastPrepared, CToastReplace} from "../types";
+import {CToastEditLoaderStatus, CToastPrepared, CToastReplace} from "../types";
 
 type Emits = {
   create: CToastPrepared
+  editLoaderStatus: CToastEditLoaderStatus
+
   clear: void
   remove: string
   replace: CToastReplace

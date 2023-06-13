@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {CToastPrepared} from "../types";
+import {CToastLoaderStagesStatuses, CToastPrepared} from "../types";
 import { Icon } from '@iconify/vue';
 import {ModuleOptions} from "../../module";
 
@@ -14,12 +14,19 @@ interface Emits {
 const props = defineProps<Props>();
 const emit = defineEmits<Emits>();
 
+function getLoaderStageIcon(status: CToastLoaderStagesStatuses): string {
+  return props.options.icons.loader.status[status];
+}
+function getLoaderStageClass(status: CToastLoaderStagesStatuses): string {
+  return `--${status}`;
+}
+
 function removeToast() {
-  if (props.data.deleteOnClick) {
-    if (props.data.onDelete) {
-      props.data.onDelete(props.data);
-    }
+  if (props.data.onClick?.delete) {
     emit('remove', props.data);
+  }
+  if (props.data.onClick?.func) {
+    props.data.onClick?.func(props.data);
   }
 }
 </script>
@@ -43,10 +50,29 @@ function removeToast() {
       :style="`animation-duration: ${data.delay}ms;`"
     />
     <div
-      v-if="data.description"
+      v-if="data.description || data.loader"
       class="ctoast-notify__content"
+      :class="{'--loader': data.loader}"
     >
-      <p>{{ data.description }}</p>
+      <p v-if="data.description">
+        {{ data.description }}
+      </p>
+      <div
+        v-if="data.loader"
+        class="ctoast-notify__content__loader"
+      >
+        <div
+          v-for="stage in data.loader.stagesStatus"
+          :key="stage"
+          class="ctoast-notify__content__loader__item"
+        >
+          <icon
+            :class="getLoaderStageClass(stage.status)"
+            :icon="getLoaderStageIcon(stage.status)"
+          />
+          <p>{{ stage.title }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -66,7 +92,7 @@ $warn: #ffb020;
   overflow: hidden;
   transition: 1s;
 
-  &.--success .ctoast-notify{
+  &.--success .ctoast-notify {
     &__header, &.iconify {
       color: $success;
     }
@@ -74,7 +100,7 @@ $warn: #ffb020;
       background-color: $success;
     }
   }
-  &.--error .ctoast-notify{
+  &.--error .ctoast-notify {
     &__header, &.iconify {
       color: $error;
     }
@@ -82,7 +108,7 @@ $warn: #ffb020;
       background-color: $error;
     }
   }
-  &.--warn .ctoast-notify{
+  &.--warn .ctoast-notify {
     &__header, &.iconify {
       color: $warn;
     }
@@ -129,34 +155,28 @@ $warn: #ffb020;
     padding: .75rem;
     background-color: rgba(255,255,255,.95);
 
+    &.--loader p {
+      padding-bottom: 2px;
+    }
     p {
       font-size: .9rem !important;
     }
-    &__loader {
+    &__loader__item {
       display: flex;
-      gap: 5px;
       align-items: center;
-      &__icon {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 18px;
-        width: 21px;
-        height: 21px;
-        &--load {
-          svg {
-            color: #ffb020;
-          }
+      gap: 10px;
+
+      & .iconify {
+        min-width: 24px;
+
+        &.--load {
+          color: $warn;
         }
-        &--success {
-          svg {
-            color: #4caf50;
-          }
+        &.--success {
+          color: $success;
         }
-        &--error {
-          svg {
-            color: #f44336;
-          }
+        &.--error {
+          color: $error;
         }
       }
     }

@@ -1,16 +1,32 @@
 import {defineNuxtModule, addPlugin, createResolver} from '@nuxt/kit';
-import {CToastOptionsPosition} from "./runtime/types";
+import {CToastOnClick, CToastOptionsPosition} from "./runtime/types";
 import defu from "defu";
 
 export interface ModuleOptions {
   position: CToastOptionsPosition
   maxToasts: number
+  loaderSwitchDelay: number
   infinityDestroyDelay: number
   massClearDelay: number
   toast: {
     delay: number
     timer: boolean
-    deleteOnClick: boolean
+    onClick: Omit<CToastOnClick, 'func'>
+  }
+  icons: {
+    default: {
+      success: string
+      error: string
+      warn: string
+    }
+    loader: {
+      header: string
+      status: {
+        load: string
+        success: string
+        error: string
+      }
+    }
   }
 }
 
@@ -25,12 +41,30 @@ export default defineNuxtModule<ModuleOptions>({
   defaults: {
     position: 'bottom-right',
     maxToasts: 10,
+    loaderSwitchDelay: 300,
     infinityDestroyDelay: 120000,
     massClearDelay: 150,
     toast: {
       delay: 3000,
       timer: true,
-      deleteOnClick: true
+      onClick: {
+        delete: true
+      }
+    },
+    icons: {
+      default: {
+        success: 'mingcute:check-fill',
+        error: 'pepicons-pop:times',
+        warn: 'pajamas:warning-solid'
+      },
+      loader: {
+        header: 'svg-spinners:tadpole',
+        status: {
+          load: 'svg-spinners:3-dots-scale',
+          success: 'mingcute:check-fill',
+          error: 'pepicons-pop:times'
+        }
+      }
     }
   },
   setup(options, nuxt) {

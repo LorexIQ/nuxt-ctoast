@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import evBus from "../plugins/evBus";
-import {CToastPrepared} from "../types";
+import {CToastLoaderStagesStatus, CToastLoaderStagesStatuses, CToastPrepared} from "../types";
 import {ModuleOptions} from "../../module";
 import {reactive} from "#imports";
-import CToastNotify from "../../../dist/runtime/components/CToastNotify.vue";
+import CToastNotify from "./CToastNotify.vue";
 
 interface Props {
   options: ModuleOptions
@@ -15,6 +15,18 @@ const { $listen } = evBus;
 
 const ctoasts = reactive<CToastPrepared[]>([]);
 const ctoastsDelays: NodeJS.Timeout[] = [];
+
+function checkStagesLoader(stages: CToastLoaderStagesStatus): CToastLoaderStagesStatuses {
+  let summary = 0;
+
+  for (const stage in stages) {
+    const status = stages[stage].status;
+    if (status === 'success') summary += 1;
+    else if (status === 'error') return 'error';
+  }
+
+  return summary === Object.keys(stages).length ? 'success' : 'load';
+}
 
 function createToast(toast: CToastPrepared, index: number = ctoasts.length): void {
   const removeTimeout = setTimeout((toast: CToastPrepared) => {
@@ -46,6 +58,16 @@ function clearToasts(toasts: CToastPrepared[]): void {
 function removeToast(toast: CToastPrepared): void {
   clearToasts([toast]);
 }
+function replaceToasts(toasts: CToastPrepared[], newToast: CToastPrepared) {
+  if (toasts.length) {
+    const lastToastIndex = ctoasts.indexOf(toasts[toasts.length - 1]);
+
+    if (lastToastIndex !== -1) {
+      createToast(newToast, lastToastIndex);
+      clearToasts(toasts.slice(0, toasts.length - 1));
+    }
+  }
+}
 
 $listen('create', toast => {
   if (ctoasts.length >= options.maxToasts) {
@@ -53,6 +75,30 @@ $listen('create', toast => {
   }
 
   createToast(toast);
+});
+$listen('editLoaderStatus', editData => {
+  const modifiedToast = ctoasts.find(toast => editData.name === toast.name);
+
+  if (modifiedToast && modifiedToast.loader) {
+    const toastStages = modifiedToast.loader.stagesStatus;
+    toastStages[editData.stage].status = editData.status;
+
+    const checkStatus = checkStagesLoader(toastStages);
+    if (['error', 'success'].includes(checkStatus)) {
+      setTimeout((mt) => {
+        if (mt.loader) {
+          if (checkStatus === 'success') {
+            replaceToasts([mt], mt.loader.success.toast);
+            mt.loader.success.on && mt.loader.success.on(mt);
+          } else if (checkStatus === 'error') {
+            mt.loader.error.toast.description = editData.desc;
+            replaceToasts([mt], mt.loader.error.toast);
+            mt.loader.error.on && mt.loader.error.on(mt, editData.stage);
+          }
+        }
+      }, options.loaderSwitchDelay, modifiedToast);
+    }
+  }
 });
 $listen('clear', () => {
   clearToasts([...ctoasts]);
@@ -63,14 +109,7 @@ $listen('remove', name => {
 $listen('replace', ([name, newToast]) => {
   const foundToasts = ctoasts.filter(toast => toast.name === name);
 
-  if (foundToasts.length) {
-    const lastToastIndex = ctoasts.indexOf(foundToasts[foundToasts.length - 1]);
-
-    if (lastToastIndex !== -1) {
-      createToast(newToast, lastToastIndex);
-      clearToasts(foundToasts.slice(0, foundToasts.length - 1));
-    }
-  }
+  replaceToasts(foundToasts, newToast);
 });
 </script>
 
