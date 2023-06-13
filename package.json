@@ -1,6 +1,6 @@
 {
   "name": "ctoast",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "New Nuxt3 cToast version!",
   "repository": "@lorexiq/ctoast",
   "license": "MIT",
