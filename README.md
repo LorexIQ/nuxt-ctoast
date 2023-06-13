@@ -1,84 +1,398 @@
-<!--
-Get your module up and running quickly.
-
-Find and replace all on all files (CMD+SHIFT+F):
-- Name: My Module
-- Package name: my-module
-- Description: My new Nuxt module
--->
-
-# My Module
+<div align="center">
+<img src="https://raw.githubusercontent.com/LorexIQ/ctoast-nuxt/HEAD/assets/imgs/cToast.png" />
+  <h1>cToast</h1>
+</div>
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
 [![License][license-src]][license-href]
 [![Nuxt][nuxt-src]][nuxt-href]
 
-My new Nuxt module for doing amazing things.
+- [✨ Release Notes](/CHANGELOG.md)
 
-- [✨ &nbsp;Release Notes](/CHANGELOG.md)
-<!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/my-module?file=playground%2Fapp.vue) -->
-<!-- - [📖 &nbsp;Documentation](https://example.com) -->
+***
+
+## Menu
+- [Installation](#install)
+- [Connecting to the project](#connect)
+- [Setting standard parameters](#default)
+- [Parameters (args)](#args)
+  - [positionPadding](#position_padding)
+  - [toast](#toast)
+  - [ctoasts](#ctoasts)
+- [Methods](#methods)
+  - [Methods `default`, `success`, `info`, `error`](#quick)
+  - [Method `show`](#show)
+  - [Method `showLoader`](#show_loader)
+  - [Method `loaderStatus`](#loader_status)
+  - [Method `replace`](#replace)
+  - [Method `delete`](#delete)
+  - [Method `clear`](#clear)
+
+***
 
 ## Features
 
-<!-- Highlight some of the features your module provide here -->
-- ⛰ &nbsp;Foo
-- 🚠 &nbsp;Bar
-- 🌲 &nbsp;Baz
+- 🌗 Themes
+- 🪝 Config base toasts
+- 🧊 Offline icons
+- 🪟 More toast positions
 
 ## Quick Setup
 
-1. Add `my-module` dependency to your project
+1. Add `ctoast` dependency to your project
 
 ```bash
 # Using pnpm
-pnpm add -D my-module
+pnpm add ctoast
 
 # Using yarn
-yarn add --dev my-module
+yarn add ctoast
 
 # Using npm
-npm install --save-dev my-module
+npm install ctoast
 ```
 
-2. Add `my-module` to the `modules` section of `nuxt.config.ts`
+2. Add `ctoast` to the `modules` section of `nuxt.config.ts`
 
 ```js
 export default defineNuxtConfig({
   modules: [
-    'my-module'
+    'ctoast'
   ]
 })
 ```
 
-That's it! You can now use My Module in your Nuxt app ✨
+That's it! You can now use cToast in your Nuxt app ✨
 
-## Development
+<a name="default"></a>
+## Setting standard parameters
 
-```bash
-# Install dependencies
-npm install
+There are 2 ways to pass parameters to the module
 
-# Generate type stubs
-npm run dev:prepare
-
-# Develop with the playground
-npm run dev
-
-# Build the playground
-npm run dev:build
-
-# Run ESLint
-npm run lint
-
-# Run Vitest
-npm run test
-npm run test:watch
-
-# Release new version
-npm run release
+1. Transfer when adding a module
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+  modules: [
+    ['ctoast', { args }]
+  ]
+})
 ```
+
+2. Passing parameters through the namespace
+```ts
+export default {
+  ctoast: {
+      args
+  }  
+}
+```
+
+***
+
+<a name="args"></a>
+## Parameters (args)
+
+```ts
+interface ModuleOptions {  
+	// position on the screen
+	// default: 'bottom-right'
+	position: CToastOptionsPosition
+	// maximum number of notifications on the screen at a time
+	// default: 10
+	maxToasts: number
+	// the delay between replacing toasts at the loader
+	// default: 300
+	loaderSwitchDelay: number 
+	// maximum delay when delay: false
+	// default: 120000
+	infinityDestroyDelay: number
+	// delay between deleting notifications during mass deletion
+	// default: 150
+	massClearDelay: number
+	toast: {
+		// notification lifetime
+		// default: 3000
+		delay: number 
+		// timer status
+		// default: true
+		timer: boolean
+		onClick: CToastOnClickConfig
+	}
+	icons: {
+		default: { // icon names for standard notifications
+			success: string // default: 'mingcute:check-fill'
+			error: string // default: 'pepicons-pop:times'
+			warn: string // default: 'pajamas:warning-solid'
+		}
+		loader: { // icon names for the notification loader
+			header: string // default: 'svg-spinners:tadpole'
+			status: {  
+				load: string // default: 'svg-spinners:3-dots-scale'
+				success: string // default: 'mingcute:check-fill'
+				error: string // default: 'pepicons-pop:times'
+			}  
+		}  
+	}  
+}
+```
+
+```ts
+type CToastOptionsPosition =  
+	| 'top-left'  
+	| 'top-right'  
+	| 'bottom-left'  
+	| 'bottom-right';
+```
+
+```ts
+type CToastOnClickConfig = {
+	// whether to delete a notification by clicking on it
+	// default: true 
+	delete?: boolean
+};
+```
+<a name="toast"></a>
+#### CToast
+
+```ts
+type CToastType = 'success' | 'error' | 'warn';
+type CToastOnClick = {  
+	delete?: boolean // whether to delete a notification by clicking on it
+	func?: (toast: CToastPrepared) => void // called function when pressed
+};
+```
+
+```ts
+interface CToast {  
+	type: CToastType // notification type
+	title: string // notification title
+	  
+	description?: string // description of the notification
+	delay?: number | false // delay before deletion
+	name?: string // notification name
+	icon?: string // notification icon
+	timer?: boolean // timer status
+	onClick?: CToastOnClick
+}
+```
+<a name="toast-loader"></a>
+#### CToastLoader
+
+```ts
+interface CToastLoaderData {  
+	success: {
+		toast: CToast // successful notification
+		// called successful function
+		on?: (toast: CToastPrepared) => void
+	}
+	error: {
+		toast: CToast // erroneous notification
+		// called error function
+		on?: (toast: CToastPrepared, stage: keyof CToastLoaderStages) => void
+	}
+	stages: {
+		// key: title - stage
+		[name: string]: string  
+	}
+}
+```
+
+```ts
+interface CToastLoader {
+	type: CToastType // notification type
+	title: string // notification title
+	name: string // notification name
+	loader: CToastLoaderData
+	
+	description?: string // description of the notification
+	delay?: number | false // delay before deletion
+	icon?: string // notification icon
+}
+```
+
+***
+
+<a name="methods"></a>
+## Methods
+
+<a name="quick"></a>
+#### Methods  `success`, `warn`, `error`
+
+Standard functions for quickly calling toasts. At the moment there are 4 types.
+
+```ts
+type CToastWithoutMeta<T extends CToastForm> = Omit<T, 'type'>;
+type CToastCreate = string | CToastWithoutMeta<CToast>;
+```
+
+```ts
+$cToast.success(data: CToastCreate);
+$cToast.warn(data: CToastCreate);
+$cToast.error(data: CToastCreate);
+```
+
+```ts
+// quicke toasts with parameters
+$cToast.success({
+	title: 'Test Success',
+	delay: false
+});
+$cToast.warn({ 
+	title: 'Test info',
+	icon: 'ph:spinner',
+	delay: false,
+	name: 'test-replace'
+});  
+$cToast.error({ 
+	title: 'Test Delete',
+	delay: false,
+	name: 'test-delete'
+});
+// or quicke toasts without parameters
+$cToast.success('Test Success');
+$cToast.info('Test Info');
+$cToast.error('Test Error');
+```
+![quickToasts](https://raw.githubusercontent.com/LorexIQ/ctoast-nuxt/HEAD/assets/imgs/quickToastsTest.gif)
+
+To call a test with a full list of parameters, the `show` function is used.
+
+***
+<a name="show"></a>
+#### Method `show`
+
+```ts
+// full toast form
+$cToast.show(data: CToast)
+
+$cToast.show({  
+	title: 'Тест зелёного',  
+	description: 'Вроде есть',  
+	type: 'success',  
+	onClick: {  
+		func: () => console.log('click')  
+	},  
+	delay: 10000,  
+	icon: 'fa:ban'
+})
+```
+![quickToasts](https://raw.githubusercontent.com/LorexIQ/ctoast-nuxt/HEAD/assets/imgs/toastTest.gif)
+
+***
+<a name="show_loader"></a>
+#### Method `showLoader` `NEW`
+This type of toast is designed to remove spam from the website interface. It is called once with all the necessary parameters and then, as something is loaded on the page, using an additional method, the state of each of the parameters changes.
+
+An example of calling this toast
+
+```ts
+// loader toast form
+$cToast.showLoader(data: CToastLoader) => {
+	success: (stage: string) => void
+	error: (stage: string, desc?: string) => void
+};
+// loader toast example
+$cToast.showLoader({  
+	title: 'Test Loader',  
+	description: 'A new loader toast has been released. Check out the new documentation',  
+	name: 'test-loader',  
+	loader: {  
+		success: {  
+			toast: {  
+				title: 'Good reviews have not been received'  
+			},  
+			on: () => console.log('success')  
+		},  
+		error: {  
+			toast: {  
+				title: 'Thank you for support'  
+			},  
+			on: () => console.log('error')  
+		},  
+		stages: {  
+			'test-1': 'search for an idea',  
+			'test-2': 'implementation of the idea',  
+			'test-3': 'good reviews'  
+		}  
+	}  
+});
+```
+![loaderSuccessTest](https://raw.githubusercontent.com/LorexIQ/ctoast-nuxt/HEAD/assets/imgs/loaderSuccessTest.gif)
+![loaderErrorTest](https://raw.githubusercontent.com/LorexIQ/ctoast-nuxt/HEAD/assets/imgs/loaderErrorTest.gif)
+
+To change the loading state, the `editLoaderStatus` method is used
+
+***
+
+<a name="edit_loader_status"></a>
+#### Method `editLoaderStatus` `NEW`
+
+This method works in conjunction with showLoader and nothing else.
+
+```ts
+type CToastLoaderStagesStatuses = 'load' | 'success' | 'error';
+```
+
+```ts
+// loader change status form
+$cToast.loaderStatus({  
+	name: string  
+	stage: string
+	status: CToastLoaderStagesStatuses
+	desc?: string 
+});
+// loader change status example success
+$cToast.loaderStatus('loader-test', 'test-1', 'error', 'error description');
+```
+***
+
+<a name="replace"></a>
+#### Method `replace`
+It is also possible to make toasts immortal. To do this, just enter the `false` value in the `delay` parameters.
+Such toasts can be destroyed by _clicking the mouse_ (**if deletion is enabled**), _reloading the page_, _clearing all toasts_, _deleting by name_, but not by time (**unless you have infinityDestroyDelay set to a very small value**).
+If you use immortal toast when loading something, then the `replace` function is perfect for your purposes.
+The function will delete the immortal toast by its name and create a new one based on the data just passed.
+
+```ts
+$cToast.replace(name: string, toast: CToast);
+// example
+$cToast.warn({ title: 'Test info', icon: 'ph:spinner', delay: false, name: 'test-replace' });
+$cToast.replace('test-replace', { title: 'Replaced!', type: 'success' });
+```
+![quickToasts](https://raw.githubusercontent.com/LorexIQ/ctoast-nuxt/HEAD/assets/imgs/replaceTest.gif)
+
+***
+
+<a name="remove"></a>
+#### Method remove
+
+A function that deletes a toast by its name.
+
+```ts
+$cToast.remove(name: string);
+// example
+$cToast.error({ title: 'Test Delete', delay: false, name: 'test-delete' });
+$cToast.remove('test-delete');
+```
+![quickToasts](https://raw.githubusercontent.com/LorexIQ/ctoast-nuxt/HEAD/assets/imgs/clearTest.gif)
+
+***
+
+<a name="clear"></a>
+#### Method `clear`
+
+The function deletes all existing toasts. Does not need parameters.
+
+```ts
+$cToast.clear();
+```
+![quickToasts](https://raw.githubusercontent.com/LorexIQ/ctoast-nuxt/HEAD/assets/imgs/clearTest.gif)
+
+***
+
+Enjoy using my toasts 🤗
 
 <!-- Badges -->
 [npm-version-src]: https://img.shields.io/npm/v/my-module/latest.svg?style=flat&colorA=18181B&colorB=28CF8D

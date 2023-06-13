@@ -24,9 +24,8 @@ export type CToastOnClick = {
   delete?: boolean,
   func?: (toast: CToastPrepared) => void
 };
+export type CToastOnClickConfig = Omit<CToastOnClick, 'func'>
 export interface CToast extends CToastForm {
-  type: CToastType
-
   timer?: boolean
   onClick?: CToastOnClick
 }
@@ -65,7 +64,7 @@ export interface CToastLoaderReturn<T extends CToastLoaderStages> {
 }
 
 export interface CToastLoader extends CToastWithoutMeta<CToastForm> {
-  name: string,
+  name: string
   loader: CToastLoaderData
 }
 

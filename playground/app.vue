@@ -50,7 +50,7 @@ function deleteToast () {
   $cToast.remove('test-delete');
 }
 function testToast () {
-  $cToast.warn({ title: 'Test info', delay: false });
+  $cToast.success({ title: 'Test info', delay: false });
   $cToast.warn({ title: 'Test info', icon: 'ph:spinner', delay: false, name: 'test-replace' });
   $cToast.error({ title: 'Test Delete', delay: false, name: 'test-delete' });
   $cToast.show({

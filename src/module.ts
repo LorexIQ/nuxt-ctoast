@@ -1,5 +1,5 @@
 import {defineNuxtModule, addPlugin, createResolver} from '@nuxt/kit';
-import {CToastOnClick, CToastOptionsPosition} from "./runtime/types";
+import {CToastOnClickConfig, CToastOptionsPosition} from "./runtime/types";
 import defu from "defu";
 
 export interface ModuleOptions {
@@ -11,7 +11,7 @@ export interface ModuleOptions {
   toast: {
     delay: number
     timer: boolean
-    onClick: Omit<CToastOnClick, 'func'>
+    onClick: CToastOnClickConfig
   }
   icons: {
     default: {
