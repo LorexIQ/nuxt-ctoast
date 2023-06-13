@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v2.5.0
+
+[compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.4.0...v2.5.0)
+
+
+### 🚀 Enhancements
+
+  - Add plugin typing ([fdf39e1](https://github.com/LorexIQ/nuxt-ctoast/commit/fdf39e1))
+
+### ❤️  Contributors
+
+- LorexIQ <murashko100500@gmail.com>
+
 ## v2.4.0
 
 [compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.3.0...v2.4.0)
