@@ -1,5 +1,5 @@
 <div align="center">
-<img src="https://raw.githubusercontent.com/LorexIQ/ctoast-nuxt/HEAD/assets/imgs/cToast.png" />
+<img src="https://raw.githubusercontent.com/LorexIQ/nuxt-ctoast/HEAD/imgs/cToast.png" />
   <h1>cToast</h1>
 </div>
 
@@ -14,20 +14,19 @@
 ***
 
 ## Menu
-- [Installation](#install)
-- [Connecting to the project](#connect)
+- [Quick Start](#qs)
 - [Setting standard parameters](#default)
-- [Parameters (args)](#args)
-  - [positionPadding](#position_padding)
-  - [toast](#toast)
-  - [ctoasts](#ctoasts)
+- [Interfaces](#interfaces)
+  - [ModuleOptions](#module_options)
+  - [CToast](#ctoast)
+  - [CToastLoader](#ctoast_loader)
 - [Methods](#methods)
-  - [Methods `default`, `success`, `info`, `error`](#quick)
+  - [Methods `success`, `info`, `error`](#quick)
   - [Method `show`](#show)
   - [Method `showLoader`](#show_loader)
-  - [Method `loaderStatus`](#loader_status)
+  - [Method `editLoaderStatus`](#edit_loader_status)
   - [Method `replace`](#replace)
-  - [Method `delete`](#delete)
+  - [Method `remove`](#remove)
   - [Method `clear`](#clear)
 
 ***
@@ -41,6 +40,7 @@
 - 🧊 Offline icons
 - 🪟 More toast positions
 
+<a name="qs"></a>
 ## Quick Setup
 
 1. Add `ctoast` dependency to your project
@@ -80,22 +80,25 @@ export default defineNuxtConfig({
   modules: [
     ['cToast', { args }]
   ]
-})
+});
 ```
 
 2. Passing parameters through the namespace
 ```ts
-export default {
+export default defineNuxtConfig({
   cToast: {
       args
   }  
-}
+});
 ```
 
 ***
 
-<a name="args"></a>
-## Parameters (args)
+<a name="interfaces"></a>
+## Interfaces
+
+<a name="module_options"></a>
+#### ModuleOptions
 
 ```ts
 interface ModuleOptions {  
@@ -156,7 +159,7 @@ type CToastOnClickConfig = {
 	delete?: boolean
 };
 ```
-<a name="toast"></a>
+<a name="ctoast"></a>
 #### CToast
 
 ```ts
@@ -180,7 +183,7 @@ interface CToast {
 	onClick?: CToastOnClick
 }
 ```
-<a name="toast-loader"></a>
+<a name="ctoast_loader"></a>
 #### CToastLoader
 
 ```ts
@@ -221,7 +224,7 @@ interface CToastLoader {
 ## Methods
 
 <a name="quick"></a>
-#### Methods  `success`, `warn`, `error`
+#### Methods `success`, `warn`, `error`
 
 Standard functions for quickly calling toasts. At the moment there are 4 types.
 
@@ -258,7 +261,7 @@ $cToast.success('Test Success');
 $cToast.info('Test Info');
 $cToast.error('Test Error');
 ```
-![quickToasts](https://raw.githubusercontent.com/LorexIQ/ctoast-nuxt/HEAD/assets/imgs/quickToastsTest.gif)
+![quickToasts](https://raw.githubusercontent.com/LorexIQ/nuxt-ctoast/HEAD/imgs/quickToastsTest.gif)
 
 To call a test with a full list of parameters, the `show` function is used.
 
@@ -281,7 +284,7 @@ $cToast.show({
 	icon: 'fa:ban'
 })
 ```
-![quickToasts](https://raw.githubusercontent.com/LorexIQ/ctoast-nuxt/HEAD/assets/imgs/toastTest.gif)
+![quickToasts](https://raw.githubusercontent.com/LorexIQ/nuxt-ctoast/HEAD/imgs/toastTest.gif)
 
 ***
 <a name="show_loader"></a>
@@ -322,8 +325,8 @@ $cToast.showLoader({
 	}  
 });
 ```
-![loaderSuccessTest](https://raw.githubusercontent.com/LorexIQ/ctoast-nuxt/HEAD/assets/imgs/loaderSuccessTest.gif)
-![loaderErrorTest](https://raw.githubusercontent.com/LorexIQ/ctoast-nuxt/HEAD/assets/imgs/loaderErrorTest.gif)
+![loaderSuccessTest](https://raw.githubusercontent.com/LorexIQ/nuxt-ctoast/HEAD/imgs/loaderSuccessTest.gif)
+![loaderErrorTest](https://raw.githubusercontent.com/LorexIQ/nuxt-ctoast/HEAD/imgs/loaderErrorTest.gif)
 
 To change the loading state, the `editLoaderStatus` method is used
 
@@ -364,7 +367,7 @@ $cToast.replace(name: string, toast: CToast);
 $cToast.warn({ title: 'Test info', icon: 'ph:spinner', delay: false, name: 'test-replace' });
 $cToast.replace('test-replace', { title: 'Replaced!', type: 'success' });
 ```
-![quickToasts](https://raw.githubusercontent.com/LorexIQ/ctoast-nuxt/HEAD/assets/imgs/replaceTest.gif)
+![quickToasts](https://raw.githubusercontent.com/LorexIQ/nuxt-ctoast/HEAD/imgs/replaceTest.gif)
 
 ***
 
@@ -379,7 +382,7 @@ $cToast.remove(name: string);
 $cToast.error({ title: 'Test Delete', delay: false, name: 'test-delete' });
 $cToast.remove('test-delete');
 ```
-![quickToasts](https://raw.githubusercontent.com/LorexIQ/ctoast-nuxt/HEAD/assets/imgs/clearTest.gif)
+![quickToasts](https://raw.githubusercontent.com/LorexIQ/nuxt-ctoast/HEAD/imgs/clearTest.gif)
 
 ***
 
@@ -391,7 +394,7 @@ The function deletes all existing toasts. Does not need parameters.
 ```ts
 $cToast.clear();
 ```
-![quickToasts](https://raw.githubusercontent.com/LorexIQ/ctoast-nuxt/HEAD/assets/imgs/clearTest.gif)
+![quickToasts](https://raw.githubusercontent.com/LorexIQ/nuxt-ctoast/HEAD/imgs/clearTest.gif)
 
 ***
 
