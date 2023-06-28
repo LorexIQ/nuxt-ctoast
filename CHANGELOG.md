@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v2.5.11
+
+[compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.5.9...v2.5.11)
+
+
+### 🩹 Fixes
+
+  - Style icon with long toast title ([2be7e6b](https://github.com/LorexIQ/nuxt-ctoast/commit/2be7e6b))
+
+### ❤️  Contributors
+
+- LorexIQ <murashko100500@gmail.com>
+
 ## v2.5.9
 
 [compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.5.8...v2.5.9)
