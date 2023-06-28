@@ -137,6 +137,9 @@ $warn: #ffb020;
     padding: .5rem;
     background-color: #f1f1f1;
 
+    & svg {
+      min-width: 20px;
+    }
     &:after {
       content: '';
       position: absolute;
