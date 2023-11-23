@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { Icon } from '@iconify/vue';
-import {
+import type {
   CToastLoaderStagesStatuses,
   CToastPrepared
 } from "../types";
