@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v2.5.13
+
+[compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.5.12...v2.5.13)
+
+### 🩹 Fixes
+
+- Fix types ([2cc0886](https://github.com/LorexIQ/nuxt-ctoast/commit/2cc0886))
+
+### ❤️ Contributors
+
+- LorexIQ <murashko100500@gmail.com>
+
 ## v2.5.12
 
 [compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.5.11...v2.5.12)
