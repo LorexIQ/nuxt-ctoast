@@ -80,7 +80,7 @@ export default defineNuxtModule<ModuleOptions>({
   },
   setup(options, nuxt) {
     const {resolve} = createResolver(import.meta.url);
-    nuxt.options.runtimeConfig.public.ctoast = defu(nuxt.options.runtimeConfig.public.ctoast, options);
+    nuxt.options.runtimeConfig.public.ctoast = defu(nuxt.options.runtimeConfig.public.ctoast as ModuleOptions, options);
 
     nuxt.hook('modules:done', () => {
       addPlugin({
