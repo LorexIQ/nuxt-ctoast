@@ -1,6 +1,19 @@
 # Changelog
 
 
+## v2.5.12
+
+[compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.5.11...v2.5.12)
+
+### 🩹 Fixes
+
+- Update nuxt 3.5.2 to 3.8.2 ([bd75ebf](https://github.com/LorexIQ/nuxt-ctoast/commit/bd75ebf))
+- Package versions ([c7a803e](https://github.com/LorexIQ/nuxt-ctoast/commit/c7a803e))
+
+### ❤️ Contributors
+
+- LorexIQ <murashko100500@gmail.com>
+
 ## v2.5.11
 
 [compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.5.9...v2.5.11)
