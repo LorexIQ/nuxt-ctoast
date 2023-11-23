@@ -1,9 +1,13 @@
 <script lang="ts" setup>
 import evBus from "../plugins/evBus";
-import {CToastLoaderStagesStatus, CToastLoaderStagesStatuses, CToastPrepared} from "../types";
-import {ModuleOptions} from "../../module";
-import {reactive} from "#imports";
 import CToastNotify from "./CToastNotify.vue";
+import { reactive } from "#imports";
+import type {
+  CToastLoaderStagesStatus,
+  CToastLoaderStagesStatuses,
+  CToastPrepared
+} from "../types";
+import type { ModuleOptions } from "../../module";
 
 interface Props {
   options: ModuleOptions

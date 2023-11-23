@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import {useNuxtApp} from "#imports";
-import {CToastLoaderStagesStatuses} from "../src/runtime/types";
+import type { CToastLoaderStagesStatuses } from "../src/runtime/types";
 
 const { $cToast } = useNuxtApp();
 

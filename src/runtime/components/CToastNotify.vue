@@ -1,7 +1,10 @@
 <script lang="ts" setup>
-import {CToastLoaderStagesStatuses, CToastPrepared} from "../types";
 import { Icon } from '@iconify/vue';
-import {ModuleOptions} from "../../module";
+import {
+  CToastLoaderStagesStatuses,
+  CToastPrepared
+} from "../types";
+import type { ModuleOptions } from "../../module";
 
 interface Props {
   data: CToastPrepared,

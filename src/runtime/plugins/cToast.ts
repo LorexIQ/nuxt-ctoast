@@ -1,16 +1,21 @@
-import {defineNuxtPlugin, Plugin} from "#app";
+import {defineNuxtPlugin} from "#app";
 import CToastComponent from '../components/CToast.vue';
 import evBus from "./evBus";
-import {createApp} from 'vue';
-import {
-  CToast, CToastCreate,
-  CToastDefFunc, CToastEditLoaderStatus,
+import { createApp } from 'vue';
+import type { Plugin } from "#app";
+import type {
+  CToast,
+  CToastCreate,
+  CToastDefFunc,
+  CToastEditLoaderStatus,
   CToastLoader,
-  CToastLoaderDataPrepared, CToastLoaderReturn, CToastPlugin,
+  CToastLoaderDataPrepared,
+  CToastLoaderReturn,
+  CToastPlugin,
   CToastPrepared,
   CToastType
 } from "../types";
-import {ModuleOptions} from "../../module";
+import type { ModuleOptions } from "../../module";
 
 let options: ModuleOptions;
 let idPadding = 0;

@@ -2,8 +2,15 @@
  * @module nuxt-ctoast
  */
 
-import {defineNuxtModule, addPlugin, createResolver} from '@nuxt/kit';
-import {CToastOnClickConfig, CToastOptionsPosition} from "./runtime/types";
+import {
+  defineNuxtModule,
+  addPlugin,
+  createResolver
+} from '@nuxt/kit';
+import type {
+  CToastOnClickConfig,
+  CToastOptionsPosition
+} from "./runtime/types";
 import defu from "defu";
 
 export interface ModuleOptions {
