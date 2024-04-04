@@ -38,7 +38,7 @@ function removeToast() {
   <div
     class="ctoast-notify"
     :class="`--${data.type}`"
-    @click="removeToast"
+    @click.stop="removeToast"
   >
     <div class="ctoast-notify__header">
       <icon
