@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v2.5.14
+
+[compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.5.13...v2.5.14)
+
+### 🩹 Fixes
+
+- Add stop click action ([cc77254](https://github.com/LorexIQ/nuxt-ctoast/commit/cc77254))
+
+### 🏡 Chore
+
+- **release:** V2.5.13 ([abcf60c](https://github.com/LorexIQ/nuxt-ctoast/commit/abcf60c))
+
+### ❤️ Contributors
+
+- LorexIQ <murashko100500@gmail.com>
+
 ## v2.5.13
 
 [compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.5.12...v2.5.13)
