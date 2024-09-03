@@ -12,6 +12,6 @@
     "nuxt": "latest"
   },
   "dependencies": {
-    "ctoast": "^2.4.0"
+    "nuxt-ctoast": "^2.5.14"
   }
 }
