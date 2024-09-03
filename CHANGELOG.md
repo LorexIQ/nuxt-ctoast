@@ -1,6 +1,20 @@
 # Changelog
 
 
+## v2.5.16
+
+[compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.5.15...v2.5.16)
+
+### 🩹 Fixes
+
+- Update to new nuxt dev kit ([3c8291d](https://github.com/LorexIQ/nuxt-ctoast/commit/3c8291d))
+- Update to new nuxt dev kit ([79b1bc4](https://github.com/LorexIQ/nuxt-ctoast/commit/79b1bc4))
+- Update to new nuxt dev kit ([ca2770d](https://github.com/LorexIQ/nuxt-ctoast/commit/ca2770d))
+
+### ❤️ Contributors
+
+- LorexIQ <i@liq-mail.ru>
+
 ## v2.5.15
 
 [compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.5.14...v2.5.15)
