@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v2.5.15
+
+[compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.5.14...v2.5.15)
+
+### 🩹 Fixes
+
+- Types for new nuxt version ([0d5720f](https://github.com/LorexIQ/nuxt-ctoast/commit/0d5720f))
+
+### 🏡 Chore
+
+- **release:** V2.5.14 ([ecafc6c](https://github.com/LorexIQ/nuxt-ctoast/commit/ecafc6c))
+
+### ❤️ Contributors
+
+- LorexIQ <i@liq-mail.ru>
+
 ## v2.5.14
 
 [compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.5.13...v2.5.14)
