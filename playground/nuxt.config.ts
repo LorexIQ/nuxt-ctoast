@@ -1,6 +1,6 @@
 export default defineNuxtConfig({
   modules: [
-    '../dist',
+    '../src',
     //'nuxt-ctoast'
   ],
 

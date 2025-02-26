@@ -80,18 +80,30 @@ function removeToast() {
   </div>
 </template>
 
+<style lang="scss">
+.ctoast-notify {
+  --ctoast-bg: #ffffff;
+  --ctoast-bg-header: #f1f1f1;
+  --ctoast-title: #2c3e50;
+  --ctoast-title-description: #2c3e50;
+  --ctoast-title-loader: #2c3e50;
+  --ctoast-shadow: #0000001E;
+  --ctoast-status-success: #4caf50;
+  --ctoast-status-warn: #ffb020;
+  --ctoast-status-error: #f44336;
+}
+</style>
 <style scoped lang="scss">
-$success: #4caf50;
-$error: #f44336;
-$warn: #ffb020;
+$success: var(--ctoast-status-success);
+$warn: var(--ctoast-status-warn);
+$error: var(--ctoast-status-error);
 
 .ctoast-notify {
   width: 250px;
   max-height: 300px;
   margin: 4px 0;
   border-radius: 5px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
-  background-color: #f1f1f1;
+  box-shadow: 0 2px 4px 0 var(--ctoast-shadow);
   overflow: hidden;
   transition: 1s;
 
@@ -128,7 +140,7 @@ $warn: #ffb020;
     text-decoration: none;
     text-transform: inherit;
     margin: 0;
-    color: #2c3e50;
+    color: var(--ctoast-title);
     user-select: none;
     transition: .3s;
   }
@@ -138,7 +150,7 @@ $warn: #ffb020;
     justify-content: flex-start;
     gap: 10px;
     padding: .5rem;
-    background-color: #f1f1f1;
+    background-color: var(--ctoast-bg-header);
 
     & svg {
       min-width: 20px;
@@ -159,19 +171,23 @@ $warn: #ffb020;
     flex-direction: column;
     gap: 5px;
     padding: .75rem;
-    background-color: rgba(255,255,255,.95);
+    background-color: var(--ctoast-bg);
 
     &.--loader p {
       padding-bottom: 2px;
     }
     p {
       font-size: .9rem !important;
+      color: var(--ctoast-title-description);
     }
     &__loader__item {
       display: flex;
       align-items: center;
       gap: 10px;
 
+      & p {
+        color: var(--ctoast-title-loader);
+      }
       & .iconify {
         min-width: 24px;
 
