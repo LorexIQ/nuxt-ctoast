@@ -82,28 +82,28 @@ function removeToast() {
 
 <style lang="scss">
 .ctoast-notify {
-  --ctoast-bg: #ffffff;
-  --ctoast-bg-header: #f1f1f1;
-  --ctoast-title: #2c3e50;
-  --ctoast-title-description: #2c3e50;
-  --ctoast-title-loader: #2c3e50;
-  --ctoast-shadow: #0000001E;
-  --ctoast-status-success: #4caf50;
-  --ctoast-status-warn: #ffb020;
-  --ctoast-status-error: #f44336;
+  --ctoastBg: #ffffff;
+  --ctoastBgHeader: #f1f1f1;
+  --ctoastTitle: #2c3e50;
+  --ctoastTitleDescription: #2c3e50;
+  --ctoastTitleLoader: #2c3e50;
+  --ctoastShadow: #0000001E;
+  --ctoastStatusSuccess: #4caf50;
+  --ctoastStatusWarn: #ffb020;
+  --ctoastStatusError: #f44336;
 }
 </style>
 <style scoped lang="scss">
-$success: var(--ctoast-status-success);
-$warn: var(--ctoast-status-warn);
-$error: var(--ctoast-status-error);
+$success: var(--ctoastStatusSuccess);
+$warn: var(--ctoastStatusWarn);
+$error: var(--ctoastStatusError);
 
 .ctoast-notify {
   width: 250px;
   max-height: 300px;
   margin: 4px 0;
   border-radius: 5px;
-  box-shadow: 0 2px 4px 0 var(--ctoast-shadow);
+  box-shadow: 0 2px 4px 0 var(--ctoastShadow);
   overflow: hidden;
   transition: 1s;
 
@@ -140,7 +140,7 @@ $error: var(--ctoast-status-error);
     text-decoration: none;
     text-transform: inherit;
     margin: 0;
-    color: var(--ctoast-title);
+    color: var(--ctoastTitle);
     user-select: none;
     transition: .3s;
   }
@@ -150,7 +150,7 @@ $error: var(--ctoast-status-error);
     justify-content: flex-start;
     gap: 10px;
     padding: .5rem;
-    background-color: var(--ctoast-bg-header);
+    background-color: var(--ctoastBgHeader);
 
     & svg {
       min-width: 20px;
@@ -171,14 +171,14 @@ $error: var(--ctoast-status-error);
     flex-direction: column;
     gap: 5px;
     padding: .75rem;
-    background-color: var(--ctoast-bg);
+    background-color: var(--ctoastBg);
 
     &.--loader p {
       padding-bottom: 2px;
     }
     p {
       font-size: .9rem !important;
-      color: var(--ctoast-title-description);
+      color: var(--ctoastTitleDescription);
     }
     &__loader__item {
       display: flex;
@@ -186,7 +186,7 @@ $error: var(--ctoast-status-error);
       gap: 10px;
 
       & p {
-        color: var(--ctoast-title-loader);
+        color: var(--ctoastTitleLoader);
       }
       & .iconify {
         min-width: 24px;
