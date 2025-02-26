@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v2.5.17
+
+[compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.5.16...v2.5.17)
+
+### 🎨 Styles
+
+- Add global css var styles ([f6599a2](https://github.com/LorexIQ/nuxt-ctoast/commit/f6599a2))
+
+### ❤️ Contributors
+
+- LorexIQ <dmitrymurashko0@gmail.com>
+
 ## v2.5.16
 
 [compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.5.15...v2.5.16)
