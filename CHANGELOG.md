@@ -1,6 +1,18 @@
 # Changelog
 
 
+## v2.5.18
+
+[compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.5.17...v2.5.18)
+
+### 🩹 Fixes
+
+- Names global var styles ([f35c614](https://github.com/LorexIQ/nuxt-ctoast/commit/f35c614))
+
+### ❤️ Contributors
+
+- LorexIQ <dmitrymurashko0@gmail.com>
+
 ## v2.5.17
 
 [compare changes](https://github.com/LorexIQ/nuxt-ctoast/compare/v2.5.16...v2.5.17)
